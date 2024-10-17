@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./api.py:/api.py
+      - ./regression.joblib:/regression.joblib
+      - ./models_utils.py:/models_utils.py
