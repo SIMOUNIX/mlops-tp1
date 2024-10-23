@@ -17,6 +17,6 @@ jobs:
 
       - name: Pull on the VM
         run: |
-          sshpass -p "${{ secrets.PASSWORD }}" ssh ubuntu@${{ secrets.IP }} -o StrictHostKeyChecking=no << EOF
-          docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-          printf "Image pulled successfully\n"
+          sshpass -p "${{ secrets.PASSWORD }}" ssh ubuntu@${{ secrets.IP }} -o StrictHostKeyChecking=no \
+          docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} &&\
+          echo "Image pulled successfully\n"
