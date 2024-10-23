@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy the model
         run: |
-          docker compose build ${{ secrets.IMAGE_NAME }} -d
+          docker compose build ${{ secrets.IMAGE_NAME }}
           docker tag ${{ secrets.IMAGE_NAME }} ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
           echo "${{ secrets.PASSWORD }}" | docker login --username ${{ secrets.USERNAME }} --password-stdin ${{ secrets.REGISTRY }}
           docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
