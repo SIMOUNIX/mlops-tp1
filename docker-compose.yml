@@ -9,3 +9,4 @@ services:
       - ./api.py:/api.py
       - ./regression.joblib:/regression.joblib
       - ./models_utils.py:/models_utils.py
+    image: api
