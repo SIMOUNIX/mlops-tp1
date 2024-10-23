@@ -14,9 +14,9 @@ jobs:
           echo "Logged in"
           docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
           echo "Deploy the model done"
-          
+
       - name: Pull on the VM
         run: |
-          sshpass -p "${{ secrets.REGISTRY_PASSWORD }}" ssh ubuntu@${{ secrets.IP }} -o StrictHostKeyChecking=no \
+          sshpass -p "${{ secrets.PASSWORD }}" ssh ubuntu@${{ secrets.IP }} -o StrictHostKeyChecking=no \
           docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} &&\
           echo "Image pulled successfully\n"
