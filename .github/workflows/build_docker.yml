@@ -1,0 +1,25 @@
+name: Build and Push to Registry
+on: [push]
+jobs:
+  Build-Image:
+    runs-on: ubuntu:22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy the model
+        run: |
+          docker build -t ${{ secrets.IMAGE_NAME }} .
+          docker compose up
+          docker tag my_image ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+          docker login -p ${{ secrets.PASSWORD }} -u ${{ secrets.USERNAME }} ${{ secrets.REGISTRY }}
+          docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+          printf "Image pushed successfully"
+
+      - name: Pull on the VM
+        run: |
+          ssh ubuntu@${{ secrets.IP }} "docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
+          printf "Image pulled successfully"
+
+    
+
+    
+      
