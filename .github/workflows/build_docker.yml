@@ -2,12 +2,12 @@ name: Build and Push to Registry
 on: [push]
 jobs:
   Build-Image:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Deploy the model
         run: |
-          docker compose build ${{ secrets.IMAGE_NAME }}
+          docker compose build ${{ secrets.IMAGE_NAME }} -d
           docker tag ${{ secrets.IMAGE_NAME }} ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
           echo "${{ secrets.PASSWORD }}" | docker login --username ${{ secrets.USERNAME }} --password-stdin ${{ secrets.REGISTRY }}
           docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
