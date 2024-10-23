@@ -18,8 +18,3 @@ jobs:
         run: |
           ssh ubuntu@${{ secrets.IP }} "docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
           printf "Image pulled successfully"
-
-    
-
-    
-      
