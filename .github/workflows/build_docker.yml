@@ -8,15 +8,9 @@ jobs:
       - name: Deploy the model
         run: |
           docker compose build api
-          echo "Docker compose build done"
           docker tag api ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
           docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
-          echo "Logged in"
           docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-          echo "Deploy the model done"
 
       - name: Pull on the VM
-        run: |
-          sshpass -p "${{ secrets.PASSWORD }}" ssh ubuntu@${{ secrets.IP }} -o StrictHostKeyChecking=no \
-          docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} &&\
-          echo "Image pulled successfully\n"
+        run: echo sshpass -p "${{ secrets.PASSWORD }}"" ssh ubuntu@${{ secrets.IP }} "docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}; docker run -d -p 6711:8000 ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
