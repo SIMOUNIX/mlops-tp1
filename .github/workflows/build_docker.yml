@@ -13,4 +13,4 @@ jobs:
           docker push ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Pull on the VM
-        run: echo sshpass -p "${{ secrets.PASSWORD }}"" ssh ubuntu@${{ secrets.IP }} "docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}; docker run -d -p 6711:8000 ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
+        run: echo sshpass -p "${{ secrets.PASSWORD }}" ssh ubuntu@${{ secrets.IP }} "docker pull ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}; docker run -d -p 6711:8000 ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
